@@ -29,8 +29,7 @@ class DashboardFragment : Fragment() {
                 ViewModelProvider(this).get(DashboardViewModel::class.java)
 
         val root =  inflater.inflate(R.layout.fragment_dashboard, container, false)
-        root.recycler_view.layoutManager = LinearLayoutManager(this.context)
-        root.recycler_view.adapter = RecyclerAdapter(cardViewFilms = CardViewFilms())
+
         return root
     }
 

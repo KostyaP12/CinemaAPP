@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemaapp.R
 import com.example.cinemaapp.repostitory.CardViewFilms
 
-class RecyclerAdapter(var cardViewFilms: CardViewFilms) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private var cardViewList : ArrayList<CardViewFilms> = ArrayList()) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,13 +25,17 @@ class RecyclerAdapter(var cardViewFilms: CardViewFilms) : RecyclerView.Adapter<R
         return ViewHolder(v)
     }
 
-    override fun getItemCount() = cardViewFilms.title.length
+
 
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val cardViewFilms : CardViewFilms = cardViewList[position]
+
         viewHolder.itemImage.setImageResource(cardViewFilms.poster)
         viewHolder.itemDetail.text = (cardViewFilms.description)
         viewHolder.itemTitle.text = (cardViewFilms.title)
+
     }
+    override fun getItemCount() = cardViewList.size
 }
 

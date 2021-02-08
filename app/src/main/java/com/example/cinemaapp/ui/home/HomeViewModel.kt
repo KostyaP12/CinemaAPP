@@ -4,15 +4,25 @@ import androidx.lifecycle.*
 import com.example.cinemaapp.repostitory.CardViewFilms
 
 class HomeViewModel(
-    private val liveDataToObserve: MutableLiveData<Any> =
-        MutableLiveData()
+    private val liveDataToObserve: MutableLiveData<ArrayList<CardViewFilms>> =
+        MutableLiveData(),
+    var cardViewList: ArrayList<CardViewFilms> = ArrayList()
 ) : ViewModel(), LifecycleObserver {
-   var cardViewFilms : CardViewFilms = CardViewFilms()
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    private fun onStart() {
-        liveDataToObserve.value = cardViewFilms
+    init {
+        generateDataFromLocalSource()
     }
-    fun getData(): LiveData<Any> {
-        return liveDataToObserve
+   fun getData (): LiveData<ArrayList<CardViewFilms>>{
+       return liveDataToObserve
+   }
+    private fun generateDataFromLocalSource() {
+        Thread {
+            generateDataFromLocalSource()
+            val cardViewFilms = CardViewFilms();
+            cardViewList.add(cardViewFilms)
+            cardViewList.add(cardViewFilms)
+            cardViewList.add(cardViewFilms)
+            cardViewList.add(cardViewFilms)
+            liveDataToObserve.postValue(cardViewList)
+        }.start()
     }
 }

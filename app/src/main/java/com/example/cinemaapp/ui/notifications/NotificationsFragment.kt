@@ -26,8 +26,7 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel =
                 ViewModelProvider(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        root.recycler_view.layoutManager = LinearLayoutManager(this.context)
-        root.recycler_view.adapter = RecyclerAdapter(cardViewFilms = CardViewFilms())
+
         return root
     }
 }

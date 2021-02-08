@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,26 +27,22 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        root.recycler_view.layoutManager = LinearLayoutManager(this.context)
-        root.recycler_view.adapter = RecyclerAdapter(cardViewFilms = CardViewFilms())
+        homeViewModel =
+            ViewModelProvider(this).get(HomeViewModel::class.java)
+
+
+        val observer = Observer<ArrayList<CardViewFilms>>{renderData(it)}
+        homeViewModel.getData().observe(viewLifecycleOwner, observer)
+
+
+        lifecycle.addObserver(homeViewModel)
         return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-        val observer = Observer<CardViewFilms> { renderData(it) }
-        lifecycle.addObserver(homeViewModel)
-
-
-
-
-
-
+    private fun renderData(data: ArrayList<CardViewFilms>) {
+        recycler_view.layoutManager = LinearLayoutManager(this.context)
+        recycler_view.adapter = RecyclerAdapter(data)
     }
 
-    private fun renderData(cardViewFilms: CardViewFilms){
-        recycler_view.adapter = RecyclerAdapter(cardViewFilms)
-    }
+
 }
