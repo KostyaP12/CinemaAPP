@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemaapp.R
 import com.example.cinemaapp.model.CardViewFilms
 
-class HomeFragmentAdapter(private var cardViewList : ArrayList<CardViewFilms> = ArrayList()) : RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
+class   HomeFragmentAdapter(private var cardViewList : ArrayList<CardViewFilms> = ArrayList()) : RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
