@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
-
-
     private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
@@ -25,7 +23,11 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
@@ -35,7 +37,6 @@ class HomeFragment : Fragment() {
 
 
         lifecycle.addObserver(homeViewModel)
-        return root
     }
 
     private fun renderData(data: ArrayList<CardViewFilms>) {
