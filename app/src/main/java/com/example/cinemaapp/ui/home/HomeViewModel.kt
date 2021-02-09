@@ -1,7 +1,7 @@
 package com.example.cinemaapp.ui.home
 
 import androidx.lifecycle.*
-import com.example.cinemaapp.repostitory.CardViewFilms
+import com.example.cinemaapp.model.CardViewFilms
 
 class HomeViewModel(
     private val liveDataToObserve: MutableLiveData<ArrayList<CardViewFilms>> =
@@ -18,6 +18,10 @@ class HomeViewModel(
         Thread {
             generateDataFromLocalSource()
             val cardViewFilms = CardViewFilms();
+            cardViewList.add(cardViewFilms)
+            cardViewList.add(cardViewFilms)
+            cardViewList.add(cardViewFilms)
+            cardViewList.add(cardViewFilms)
             cardViewList.add(cardViewFilms)
             cardViewList.add(cardViewFilms)
             cardViewList.add(cardViewFilms)

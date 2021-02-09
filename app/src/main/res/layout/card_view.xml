@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/item_title"
             android:layout_toEndOf="@+id/item_poster"
-            android:layout_toStartOf="@+id/item_poster"
             android:layout_alignParentTop="true"
             android:textSize="30sp" />
 

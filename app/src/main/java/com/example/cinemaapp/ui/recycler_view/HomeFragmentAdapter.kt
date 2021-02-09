@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemaapp.R
-import com.example.cinemaapp.repostitory.CardViewFilms
+import com.example.cinemaapp.model.CardViewFilms
 
 class HomeFragmentAdapter(private var cardViewList : ArrayList<CardViewFilms> = ArrayList()) : RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
 
@@ -36,6 +36,8 @@ class HomeFragmentAdapter(private var cardViewList : ArrayList<CardViewFilms> = 
         viewHolder.itemTitle.text = (cardViewFilms.title)
 
     }
-    override fun getItemCount() = cardViewList.size
+    override fun getItemCount() : Int{
+        return cardViewList.size
+    }
 }
 

@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemaapp.R
-import com.example.cinemaapp.repostitory.CardViewFilms
+import com.example.cinemaapp.model.CardViewFilms
 import com.example.cinemaapp.ui.recycler_view.HomeFragmentAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun renderData(data: ArrayList<CardViewFilms>) {
-        recycler_view.layoutManager = LinearLayoutManager(this.context)
+        //recycler_view.layoutManager = LinearLayoutManager(this.context)
         recycler_view.adapter = HomeFragmentAdapter(data)
     }
 
