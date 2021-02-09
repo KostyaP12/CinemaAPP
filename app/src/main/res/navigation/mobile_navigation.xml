@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.cinemaapp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_top_rating"
+        android:name="com.example.cinemaapp.ui.top_rating.TopRatingFragment"
+        android:label="@string/top_rating"
+        tools:layout="@layout/fragment_top_rating" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.cinemaapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_favorites"
+        android:name="com.example.cinemaapp.ui.favorites.FavoritesFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>
