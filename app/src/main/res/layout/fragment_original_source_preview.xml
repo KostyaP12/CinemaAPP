@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/full_poster"
-        android:text="@string/aboutfilm"/>
+        android:text="@string/about_film"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

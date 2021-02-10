@@ -11,7 +11,7 @@ import com.example.cinemaapp.model.CardViewFilms
 import com.example.cinemaapp.model.OriginalSourcePreview
 import kotlinx.android.synthetic.main.card_view.view.*
 
-class   HomeFragmentAdapter() : RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
+class   FavoritesFragmentAdapter() : RecyclerView.Adapter<FavoritesFragmentAdapter.ViewHolder>() {
     private var originalSourcePreview : List<OriginalSourcePreview> = listOf()
 
     fun setOriginalSourcePreview(data: List<OriginalSourcePreview>) {
