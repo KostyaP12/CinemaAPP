@@ -1,11 +1,13 @@
 package com.example.cinemaapp.model
 
+import android.os.Parcelable
 import com.example.cinemaapp.R
+import kotlinx.android.parcel.Parcelize
 
-
+@Parcelize
 data class OriginalSourcePreview(
     val cardViewFilms: CardViewFilms = getDefaultPreview()
-)
+):Parcelable
 
 fun getDefaultPreview() = CardViewFilms(title = "Title", description = "Films`s description", poster = R.drawable.heroes)  // когда пройдем Picasso никаких ссылок на картинки не будет
 fun getAllFilms(): List<OriginalSourcePreview>{

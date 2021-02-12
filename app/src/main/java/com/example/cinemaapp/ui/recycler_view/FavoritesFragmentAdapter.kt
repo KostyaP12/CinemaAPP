@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemaapp.R
 import com.example.cinemaapp.model.CardViewFilms
 import com.example.cinemaapp.model.OriginalSourcePreview
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_view.view.*
 
 class   FavoritesFragmentAdapter() : RecyclerView.Adapter<FavoritesFragmentAdapter.ViewHolder>() {
@@ -23,7 +24,8 @@ class   FavoritesFragmentAdapter() : RecyclerView.Adapter<FavoritesFragmentAdapt
         fun bind(originalSourcePreview: OriginalSourcePreview){
             itemView.item_title.text = originalSourcePreview.cardViewFilms.title
             itemView.item_detail.text = originalSourcePreview.cardViewFilms.description
-            itemView.item_poster.setImageResource(originalSourcePreview.cardViewFilms.poster)
+            //itemView.item_poster.setImageResource(originalSourcePreview.cardViewFilms.poster)
+            Picasso.with(itemView.context).load(originalSourcePreview.cardViewFilms.poster).into(itemView.item_poster)
         }
 
 

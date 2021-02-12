@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemaapp.R
 import com.example.cinemaapp.model.AppState
+import com.example.cinemaapp.model.OnItemPreviewClickListener
+import com.example.cinemaapp.model.OriginalSourcePreview
+import com.example.cinemaapp.ui.original_source_preview.OriginalSourcePreviewFragment
 import com.example.cinemaapp.ui.recycler_view.HomeFragmentAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -18,7 +21,27 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
-    private val adapter = HomeFragmentAdapter()
+    private val adapter = HomeFragmentAdapter(object : OnItemPreviewClickListener {
+        override fun onItemPreviewClickListener(originalSourcePreview: OriginalSourcePreview) {
+            val manager = activity?.supportFragmentManager
+            if (manager != null) {
+                val bundle = Bundle()
+                bundle.putParcelable(
+                    OriginalSourcePreviewFragment.BUNDLE_EXTRA,
+                    originalSourcePreview
+                )
+                manager.beginTransaction()
+                    .add(
+                        R.id.homeView,
+                        OriginalSourcePreviewFragment.newInstance(bundle)
+                    )
+                    .addToBackStack("")
+                    .commit()
+            }
+        }
+
+    })
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
