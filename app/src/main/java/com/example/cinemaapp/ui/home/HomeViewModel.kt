@@ -1,32 +1,34 @@
 package com.example.cinemaapp.ui.home
 
 import androidx.lifecycle.*
+import com.example.cinemaapp.model.AppState
 import com.example.cinemaapp.model.CardViewFilms
+import com.example.cinemaapp.model.Repository
+import com.example.cinemaapp.model.RepositoryImpl
 
 class HomeViewModel(
-    private val liveDataToObserve: MutableLiveData<ArrayList<CardViewFilms>> =
-        MutableLiveData(),
-    var cardViewList: ArrayList<CardViewFilms> = ArrayList()
-) : ViewModel(), LifecycleObserver {
+    private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
+    private val repository: Repository = RepositoryImpl()
+) :
+    ViewModel() {
     init {
         generateDataFromLocalSource()
     }
-   fun getData (): LiveData<ArrayList<CardViewFilms>>{
-       return liveDataToObserve
-   }
+    fun getDataFromLocalSource() = generateDataFromLocalSource()
+
+    fun getLiveData() = liveDataToObserve
+
     private fun generateDataFromLocalSource() {
+        liveDataToObserve.value = AppState.Loading
         Thread {
-            generateDataFromLocalSource()
-            val cardViewFilms = CardViewFilms();
-            cardViewList.add(cardViewFilms)
-            cardViewList.add(cardViewFilms)
-            cardViewList.add(cardViewFilms)
-            cardViewList.add(cardViewFilms)
-            cardViewList.add(cardViewFilms)
-            cardViewList.add(cardViewFilms)
-            cardViewList.add(cardViewFilms)
-            cardViewList.add(cardViewFilms)
-            liveDataToObserve.postValue(cardViewList)
+            Thread.sleep(1000)
+            liveDataToObserve.postValue(AppState.Success(
+                repository.getOriginalSourcePreviewFilms()
+            ))
         }.start()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
     }
 }
