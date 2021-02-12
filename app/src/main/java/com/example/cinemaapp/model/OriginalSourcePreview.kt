@@ -40,5 +40,3 @@ fun getTopRatingFilms(): List<OriginalSourcePreview>{
         OriginalSourcePreview(CardViewFilms("Властелин колец: Две крепости", "Голлум ведет хоббитов в Мордор, а великие армии готовятся к битве. Два «Оскара»", R.drawable.heroes))
     )
 }
-
-

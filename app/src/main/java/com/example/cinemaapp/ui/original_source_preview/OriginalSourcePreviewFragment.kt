@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.cinemaapp.R
 import com.example.cinemaapp.model.OriginalSourcePreview
-import kotlinx.android.synthetic.main.card_view.*
 import kotlinx.android.synthetic.main.fragment_original_source_preview.*
 
 class OriginalSourcePreviewFragment : Fragment() {
@@ -39,7 +38,4 @@ class OriginalSourcePreviewFragment : Fragment() {
             return fragment
         }
     }
-
-
 }
-

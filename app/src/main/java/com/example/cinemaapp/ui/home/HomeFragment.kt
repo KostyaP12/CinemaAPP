@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +16,6 @@ import com.example.cinemaapp.ui.original_source_preview.OriginalSourcePreviewFra
 import com.example.cinemaapp.ui.recycler_view.HomeFragmentAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
-
 
 class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
@@ -59,7 +57,6 @@ class HomeFragment : Fragment() {
         homeViewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
     }
 
-
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
@@ -78,6 +75,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
-
 }
