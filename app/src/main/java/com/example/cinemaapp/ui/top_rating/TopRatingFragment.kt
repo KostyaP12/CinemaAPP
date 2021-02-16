@@ -10,14 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemaapp.R
 import com.example.cinemaapp.model.AppState
-import com.example.cinemaapp.ui.home.HomeViewModel
-import com.example.cinemaapp.ui.recycler_view.HomeFragmentAdapter
 import com.example.cinemaapp.ui.recycler_view.TopRatingFragmentAdapter
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.loadingLayout
 import kotlinx.android.synthetic.main.fragment_top_rating.*
-
 
 class TopRatingFragment  : Fragment() {
     private lateinit var topRatingViewModel: TopRatingViewModel
@@ -39,7 +35,6 @@ class TopRatingFragment  : Fragment() {
         topRatingViewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
     }
 
-
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
@@ -58,6 +53,4 @@ class TopRatingFragment  : Fragment() {
             }
         }
     }
-
-
 }

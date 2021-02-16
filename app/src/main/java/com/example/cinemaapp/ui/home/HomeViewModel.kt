@@ -2,7 +2,6 @@ package com.example.cinemaapp.ui.home
 
 import androidx.lifecycle.*
 import com.example.cinemaapp.model.AppState
-import com.example.cinemaapp.model.CardViewFilms
 import com.example.cinemaapp.model.Repository
 import com.example.cinemaapp.model.RepositoryImpl
 

@@ -10,12 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemaapp.R
 import com.example.cinemaapp.model.AppState
-import com.example.cinemaapp.ui.home.HomeViewModel
 import com.example.cinemaapp.ui.recycler_view.FavoritesFragmentAdapter
-import com.example.cinemaapp.ui.recycler_view.HomeFragmentAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_favorites.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.loadingLayout
 
 class FavoritesFragment : Fragment() {
@@ -39,7 +36,6 @@ class FavoritesFragment : Fragment() {
         favoritesViewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
     }
 
-
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
@@ -58,6 +54,4 @@ class FavoritesFragment : Fragment() {
             }
         }
     }
-
-
 }

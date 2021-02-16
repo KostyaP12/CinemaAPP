@@ -12,5 +12,4 @@ class RepositoryImpl : Repository {
     override fun getOriginalSourcePreviewTopRatingFilms(): List<OriginalSourcePreview> {
        return getTopRatingFilms()
     }
-
 }
