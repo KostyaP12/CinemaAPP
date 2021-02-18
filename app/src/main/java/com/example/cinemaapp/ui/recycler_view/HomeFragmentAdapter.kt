@@ -9,26 +9,33 @@ import com.example.cinemaapp.model.OnItemPreviewClickListener
 import com.example.cinemaapp.model.OriginalSourcePreview
 import kotlinx.android.synthetic.main.card_view.view.*
 
-class   HomeFragmentAdapter(private var onItemPreviewClickListener: OnItemPreviewClickListener?) : RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
-    private var originalSourcePreview : List<OriginalSourcePreview> = listOf()
+class HomeFragmentAdapter(private var onItemPreviewClickListener: OnItemPreviewClickListener?) :
+    RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
+    private var originalSourcePreview: List<OriginalSourcePreview> = listOf()
 
     fun setOriginalSourcePreview(data: List<OriginalSourcePreview>) {
         originalSourcePreview = data
         notifyDataSetChanged()
     }
 
-    fun removeClickListener(){
+    fun removeClickListener() {
         onItemPreviewClickListener = null
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(originalSourcePreview: OriginalSourcePreview){
-            itemView.item_title.text = originalSourcePreview.cardViewFilms.title
-            itemView.item_detail.text = originalSourcePreview.cardViewFilms.description
-            itemView.item_poster.setImageResource(originalSourcePreview.cardViewFilms.poster)
-            itemView.setOnClickListener {
-            onItemPreviewClickListener?.onItemPreviewClickListener(originalSourcePreview)
+        fun bind(originalSourcePreview: OriginalSourcePreview) {
+            itemView.apply {
+                item_title.text = originalSourcePreview.cardViewFilms.title
+                item_detail.text = originalSourcePreview.cardViewFilms.description
+                item_poster.setImageResource(
+                    originalSourcePreview.cardViewFilms.poster
+                )
+                setOnClickListener {
+                    onItemPreviewClickListener?.onItemPreviewClickListener(
+                        originalSourcePreview
+                    )
+                }
             }
         }
     }
@@ -40,10 +47,9 @@ class   HomeFragmentAdapter(private var onItemPreviewClickListener: OnItemPrevie
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bind(originalSourcePreview[position])
-
     }
 
-    override fun getItemCount() : Int{
+    override fun getItemCount(): Int {
         return originalSourcePreview.size
     }
 }

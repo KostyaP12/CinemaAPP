@@ -31,7 +31,6 @@ class   TopRatingFragmentAdapter() : RecyclerView.Adapter<TopRatingFragmentAdapt
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.bind(originalSourcePreview[position])
-
     }
 
     override fun getItemCount() : Int{

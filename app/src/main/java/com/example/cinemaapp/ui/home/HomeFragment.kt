@@ -23,11 +23,9 @@ class HomeFragment : Fragment() {
         override fun onItemPreviewClickListener(originalSourcePreview: OriginalSourcePreview) {
             val manager = activity?.supportFragmentManager
             if (manager != null) {
-                val bundle = Bundle()
-                bundle.putParcelable(
-                    OriginalSourcePreviewFragment.BUNDLE_EXTRA,
-                    originalSourcePreview
-                )
+                val bundle = Bundle().apply {
+                    putParcelable(OriginalSourcePreviewFragment.BUNDLE_EXTRA, originalSourcePreview)
+                }
                 manager.beginTransaction()
                     .add(
                         R.id.homeView,
@@ -37,7 +35,6 @@ class HomeFragment : Fragment() {
                     .commit()
             }
         }
-
     })
 
     override fun onCreateView(
