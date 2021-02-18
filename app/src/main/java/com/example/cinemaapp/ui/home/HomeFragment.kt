@@ -13,13 +13,13 @@ import com.example.cinemaapp.model.AppState
 import com.example.cinemaapp.model.OnItemPreviewClickListener
 import com.example.cinemaapp.model.OriginalSourcePreview
 import com.example.cinemaapp.ui.original_source_preview.OriginalSourcePreviewFragment
-import com.example.cinemaapp.ui.recycler_view.HomeFragmentAdapter
+import com.example.cinemaapp.ui.recycler_view.VerticalAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
-    private val adapter = HomeFragmentAdapter(object : OnItemPreviewClickListener {
+    private val adapter = VerticalAdapter(object : OnItemPreviewClickListener {
         override fun onItemPreviewClickListener(originalSourcePreview: OriginalSourcePreview) {
             val manager = activity?.supportFragmentManager
             if (manager != null) {

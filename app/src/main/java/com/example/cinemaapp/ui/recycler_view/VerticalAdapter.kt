@@ -9,8 +9,8 @@ import com.example.cinemaapp.model.OnItemPreviewClickListener
 import com.example.cinemaapp.model.OriginalSourcePreview
 import kotlinx.android.synthetic.main.card_view.view.*
 
-class HomeFragmentAdapter(private var onItemPreviewClickListener: OnItemPreviewClickListener?) :
-    RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
+class VerticalAdapter(private var onItemPreviewClickListener: OnItemPreviewClickListener?) :
+    RecyclerView.Adapter<VerticalAdapter.ViewHolder>() {
     private var originalSourcePreview: List<OriginalSourcePreview> = listOf()
 
     fun setOriginalSourcePreview(data: List<OriginalSourcePreview>) {
