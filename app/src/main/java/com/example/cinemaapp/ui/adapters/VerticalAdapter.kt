@@ -1,11 +1,10 @@
-package com.example.cinemaapp.ui.recycler_view
+package com.example.cinemaapp.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemaapp.R
-import com.example.cinemaapp.model.OnItemPreviewClickListener
 import com.example.cinemaapp.model.OriginalSourcePreview
 import kotlinx.android.synthetic.main.card_view.view.*
 
