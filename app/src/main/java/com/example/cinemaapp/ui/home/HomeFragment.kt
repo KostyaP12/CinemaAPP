@@ -1,5 +1,8 @@
 package com.example.cinemaapp.ui.home
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -9,13 +12,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemaapp.R
-import com.example.cinemaapp.model.AppState
-import com.example.cinemaapp.model.Movie
-import com.example.cinemaapp.model.MyBroadcastReceiver
+import com.example.cinemaapp.model.*
 import com.example.cinemaapp.ui.adapters.OnItemPreviewClickListener
-import com.example.cinemaapp.model.OriginalSourcePreview
 import com.example.cinemaapp.ui.original_source_preview.OriginalSourcePreviewFragment
 import com.example.cinemaapp.ui.adapters.VerticalAdapter
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -26,7 +27,17 @@ class HomeFragment : Fragment() {
     private var snackBar: Snackbar? = null
     private lateinit var movieBundle: Movie
     private lateinit var homeViewModel: HomeViewModel
-
+    private val loadResultsReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            renderData(
+                Movie(
+                    intent.getStringExtra(TITLE_EXTRA)!!,
+                    intent.getStringExtra(OVERVIEW)!!,
+                    intent.getStringExtra(POSTER_PATH)!!
+                )
+            )
+        }
+    }
     private val adapter = VerticalAdapter(object :
         OnItemPreviewClickListener {
         override fun onItemPreviewClickListener(originalSourcePreview: OriginalSourcePreview) {
@@ -60,26 +71,22 @@ class HomeFragment : Fragment() {
         recycler_view_home.layoutManager = LinearLayoutManager(this.context)
 
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        homeViewModel.getLiveData().observe(viewLifecycleOwner, Observer { renderData(it) })
+        getMovies()
     }
 
-    private fun renderData(appState: AppState) {
-        when (appState) {
-            is AppState.Success -> {
-                loadingLayout.visibility = View.GONE
-                adapter.setOriginalSourcePreview(appState.previewData)
-            }
-            is AppState.Loading -> {
-                loadingLayout.visibility = View.VISIBLE
-            }
-            is AppState.Error -> {
-                loadingLayout.visibility = View.GONE
-                Snackbar
-                    .make(homeView, getString(R.string.error), Snackbar.LENGTH_INDEFINITE)
-                    .setAction(getString(R.string.reload)) { homeViewModel.getDataFromLocalSource() }
-                    .show()
-            }
+    private fun getMovies() {
+        loadingLayout.visibility = View.VISIBLE
+        println()
+        context?.let {nonNullContext ->
+            nonNullContext.startService(Intent(nonNullContext, MovieService::class.java))
         }
+    }
+
+    private fun renderData(movie: Movie) {
+
+        loadingLayout.visibility = View.GONE
+        adapter.setMovie(movie)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,10 +96,21 @@ class HomeFragment : Fragment() {
             MyBroadcastReceiver(),
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
+        context?.let {
+            LocalBroadcastManager.getInstance(it)
+                .registerReceiver(loadResultsReceiver, IntentFilter(DETAILS_INTENT_FILTER))
+        }
     }
 
     fun onNetworkConnectionChanged(isConnected: Boolean) {
         showNetworkMessage(isConnected)
+    }
+
+    override fun onDestroy() {
+        context?.let {
+            LocalBroadcastManager.getInstance(it).unregisterReceiver(loadResultsReceiver)
+        }
+        super.onDestroy()
     }
 
     override fun onResume() {

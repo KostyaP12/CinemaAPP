@@ -3,17 +3,20 @@ package com.example.cinemaapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemaapp.R
+import com.example.cinemaapp.model.Movie
 import com.example.cinemaapp.model.OriginalSourcePreview
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_view.view.*
 
 class VerticalAdapter(private var onItemPreviewClickListener: OnItemPreviewClickListener?) :
     RecyclerView.Adapter<VerticalAdapter.ViewHolder>() {
-    private var originalSourcePreview: List<OriginalSourcePreview> = listOf()
+    private var movie: List<Movie> = listOf()
 
-    fun setOriginalSourcePreview(data: List<OriginalSourcePreview>) {
-        originalSourcePreview = data
+    fun setMovie(movieL: Movie) {
+        movie = listOf(movieL)
         notifyDataSetChanged()
     }
 
@@ -23,32 +26,24 @@ class VerticalAdapter(private var onItemPreviewClickListener: OnItemPreviewClick
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(originalSourcePreview: OriginalSourcePreview) {
+        fun bind(movie: Movie) {
             itemView.apply {
-                item_title.text = originalSourcePreview.cardViewFilms.title
-                item_detail.text = originalSourcePreview.cardViewFilms.description
-                item_poster.setImageResource(
-                    originalSourcePreview.cardViewFilms.poster
-                )
-                setOnClickListener {
-                    onItemPreviewClickListener?.onItemPreviewClickListener(
-                        originalSourcePreview
-                    )
-                }
+                item_title.text = movie.original_title
+                item_detail.text = movie.overview  }
+            Picasso.get().load(movie.poster_path).placeholder(R.drawable.heroes).into(itemView.findViewById<ImageView>(R.id.item_poster))
             }
         }
-    }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.card_view, viewGroup, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.card_view, parent, false)
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(originalSourcePreview[position])
+    override fun getItemCount(): Int {
+        return movie.size
     }
 
-    override fun getItemCount(): Int {
-        return originalSourcePreview.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(movie[position])
     }
 }
