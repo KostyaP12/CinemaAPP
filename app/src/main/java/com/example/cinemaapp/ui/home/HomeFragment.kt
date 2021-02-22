@@ -25,19 +25,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
     private var snackBar: Snackbar? = null
-    private lateinit var movieBundle: Movie
     private lateinit var homeViewModel: HomeViewModel
-    private val loadResultsReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            renderData(
-                Movie(
-                    intent.getStringExtra(TITLE_EXTRA)!!,
-                    intent.getStringExtra(OVERVIEW)!!,
-                    intent.getStringExtra(POSTER_PATH)!!
-                )
-            )
-        }
-    }
     private val adapter = VerticalAdapter(object :
         OnItemPreviewClickListener {
         override fun onItemPreviewClickListener(originalSourcePreview: OriginalSourcePreview) {
@@ -76,7 +64,6 @@ class HomeFragment : Fragment() {
 
     private fun getMovies() {
         loadingLayout.visibility = View.VISIBLE
-        println()
         context?.let {nonNullContext ->
             nonNullContext.startService(Intent(nonNullContext, MovieService::class.java))
         }
@@ -96,22 +83,14 @@ class HomeFragment : Fragment() {
             MyBroadcastReceiver(),
             IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
         )
-        context?.let {
-            LocalBroadcastManager.getInstance(it)
-                .registerReceiver(loadResultsReceiver, IntentFilter(DETAILS_INTENT_FILTER))
-        }
+
     }
 
     fun onNetworkConnectionChanged(isConnected: Boolean) {
         showNetworkMessage(isConnected)
     }
 
-    override fun onDestroy() {
-        context?.let {
-            LocalBroadcastManager.getInstance(it).unregisterReceiver(loadResultsReceiver)
-        }
-        super.onDestroy()
-    }
+
 
     override fun onResume() {
         super.onResume()

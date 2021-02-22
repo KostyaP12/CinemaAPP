@@ -28,9 +28,9 @@ class VerticalAdapter(private var onItemPreviewClickListener: OnItemPreviewClick
 
         fun bind(movie: Movie) {
             itemView.apply {
-                item_title.text = movie.original_title
-                item_detail.text = movie.overview  }
-            Picasso.get().load(movie.poster_path).placeholder(R.drawable.heroes).into(itemView.findViewById<ImageView>(R.id.item_poster))
+                item_title.text = movie.title
+                item_detail.text = movie.description  }
+            Picasso.get().load(movie.poster).placeholder(R.drawable.heroes).into(itemView.findViewById<ImageView>(R.id.item_poster))
             }
         }
 

@@ -1,7 +1,16 @@
 package com.example.cinemaapp.model
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class Movie(
-    val original_title: String,
-    val overview: String,
-    val poster_path: String
+    @SerializedName("original_title")
+    @Expose
+    val title: String,
+    @SerializedName("overview")
+    @Expose
+    val description: String,
+    @SerializedName("poster_path")
+    @Expose
+    val poster: String
 )

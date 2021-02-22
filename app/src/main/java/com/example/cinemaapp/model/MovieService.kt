@@ -6,11 +6,15 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.lang.Exception
+import java.lang.reflect.Type
 import java.net.URL
+import java.util.ArrayList
 import java.util.stream.Collectors
 import javax.net.ssl.HttpsURLConnection
 
@@ -18,14 +22,17 @@ private const val REQUEST_GET = "GET"
 private const val REQUEST_TIMEOUT = 10000
 
 class MovieService : IntentService("MovieService") {
-    private val broadcastIntent = Intent(DETAILS_INTENT_FILTER)
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onHandleIntent(intent: Intent?) {
-        loadMovie()
+        if (intent == null) {
+            println("INTENT = NULL")
+        } else {
+            loadMovie()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    private fun loadMovie() {
+    fun loadMovie() {
         try {
             val uri = URL("$API_LINK$API_KEY$API_LANGUAGE$API_PAGE")
             lateinit var urlConnection: HttpsURLConnection
@@ -35,31 +42,22 @@ class MovieService : IntentService("MovieService") {
                     requestMethod = REQUEST_GET
                     readTimeout = REQUEST_TIMEOUT
                 }
-
-                val movie: Movie =
-                    Gson().fromJson(
-                        getLines(BufferedReader(InputStreamReader(urlConnection.inputStream))),
-                        Movie::class.java
+                val turns = Gson().fromJson<List<Movie>>(
+                    getLines(
+                        BufferedReader(
+                            InputStreamReader(urlConnection.inputStream)
+                        )
                     )
-                onResponse(movie)
-            }
-            catch (e: Exception){
-                e.message
+                )
+                println(turns[1].title)
+            } catch (e: Exception) {
+                println(e.message)
             } finally {
                 urlConnection.disconnect()
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.message
         }
-    }
-
-    private fun onResponse(movie: Movie) {
-        broadcastIntent.apply {
-            putExtra(TITLE_EXTRA, movie.original_title)
-            putExtra(OVERVIEW, movie.overview)
-            putExtra(POSTER_PATH, movie.poster_path)
-        }
-        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -67,24 +65,6 @@ class MovieService : IntentService("MovieService") {
         return reader.lines().collect(Collectors.joining("\n"))
     }
 
-    /*private fun getLines(reader: BufferedReader): String {
-        val rawData = StringBuilder(1024);
-        var tempVariable: String;
-        while (true) {
-            try {
-                tempVariable = reader.readLine();
-                if (tempVariable == null) break;
-                rawData.append(tempVariable).append("\n");
-            } catch (e: IOException) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            reader.close();
-        } catch (e: IOException) {
-            e.printStackTrace();
-        }
-        println(rawData.toString())
-        return rawData.toString();
-    }*/
+    inline fun <reified T> Gson.fromJson(json: String) =
+        fromJson<List<Movie>>(json, object : TypeToken<List<Movie>>() {}.type)
 }
