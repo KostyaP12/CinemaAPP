@@ -1,33 +1,17 @@
 package com.example.cinemaapp.ui.home
 
-import androidx.lifecycle.*
-import com.example.cinemaapp.model.AppState
-import com.example.cinemaapp.model.Repository
-import com.example.cinemaapp.model.RepositoryImpl
+import androidx.lifecycle.MutableLiveData
+import com.example.cinemaapp.repositories.MovieRepository
+import com.example.cinemaapp.responses.MovieResponse
 
-class HomeViewModel(
-    private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
-    private val repository: Repository = RepositoryImpl()
-) :
-    ViewModel() {
-    init {
-        generateDataFromLocalSource()
-    }
-    fun getDataFromLocalSource() = generateDataFromLocalSource()
 
-    fun getLiveData() = liveDataToObserve
+class HomeViewModel {
+    private val movieRepository = MovieRepository()
 
-    private fun generateDataFromLocalSource() {
-        liveDataToObserve.value = AppState.Loading
-        Thread {
-            Thread.sleep(1000)
-            liveDataToObserve.postValue(AppState.Success(
-                repository.getOriginalSourcePreviewFilms()
-            ))
-        }.start()
-    }
+    private val observerNowPlayingMovies = MutableLiveData<MovieResponse>()
+    fun getObserverNowPlayingMovies() = observerNowPlayingMovies
 
-    override fun onCleared() {
-        super.onCleared()
+    fun lookNowMovie() {
+        movieRepository.getNowPlayingMovies(observerNowPlayingMovies)
     }
 }
