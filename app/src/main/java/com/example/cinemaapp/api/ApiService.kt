@@ -14,6 +14,7 @@ interface ApiService {
         @Query("api_key") key: String,
         @Query("language") lang: String
     ):Call<MovieResponse>
+
     @GET(API_NOW_PLAYING_MOVIES)
     fun getNowPlayingMovies(
         @Query("api_key") key: String,
@@ -39,7 +40,6 @@ interface ApiService {
         @Query("query") query: String
     ): Call<MovieResponse>
 
-
     @GET(API_DETAILS_MOVIES)
     fun getDetailsMovie(@Path("id") id: Int,
                     @Query("api_key") key: String,
@@ -51,5 +51,4 @@ interface ApiService {
                           @Query("api_key") key: String,
                           @Query("language") lang: String
     ): Call<ActorsResponse>
-
 }

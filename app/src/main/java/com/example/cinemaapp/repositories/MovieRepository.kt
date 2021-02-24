@@ -50,7 +50,6 @@ class MovieRepository {
 
     }
 
-
     fun getTopMovies(_observingMovies: MutableLiveData<MovieResponse>) {
         apiService.getTopMovies(API_KEY, "ru").enqueue(object :
             retrofit2.Callback<MovieResponse> {

@@ -1,7 +1,6 @@
 package com.example.cinemaapp.responses
 
 import com.example.cinemaapp.model.Movie
-import java.io.Serializable
 
 data class MovieResponse(
     val page: Int,

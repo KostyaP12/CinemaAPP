@@ -14,5 +14,4 @@ class HomeViewModel {
     fun lookNowMovie() {
         movieRepository.getNowPlayingMovies(observerNowPlayingMovies)
     }
-    val dataNowPlayingMovies = MutableLiveData<String>()
 }
