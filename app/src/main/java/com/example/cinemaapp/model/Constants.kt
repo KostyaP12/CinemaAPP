@@ -1,6 +1,5 @@
 package com.example.cinemaapp.model
 
-const val DETAILS_INTENT_FILTER = "DETAILS INTENT FILTER"
 const val API_KEY = "f163c46b4a24e208bc4bcc86d267e255"
 const val API_LINK = "https://api.themoviedb.org"
 const val API_POPULAR_MOVIES = "/3/movie/popular"
@@ -10,6 +9,4 @@ const val API_TOP_MOVIES = "/3/movie/top_rated"
 const val API_SEARCH_MOVIES = "/3/search/movie/"
 const val API_DETAILS_MOVIES = "/3/movie"
 const val API_ACTORS = "/3/search/person"
-const val API_LANGUAGE = "&language=en"
-const val API_PAGE = "&page=1"
 const val API_IMAGE_URL = "https://image.tmdb.org/t/p/w400"
