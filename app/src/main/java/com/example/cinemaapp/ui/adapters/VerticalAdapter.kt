@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cinemaapp.R
 import com.example.cinemaapp.model.API_IMAGE_URL
 import com.example.cinemaapp.model.Movie
-import com.example.cinemaapp.model.OriginalSourcePreview
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.card_view.view.*
 
 class VerticalAdapter() :
-    RecyclerView.Adapter<VerticalAdapter.ViewHolder>() {
+    RecyclerView.Adapter<VerticalAdapter.ViewHolder>(), View.OnClickListener{
 
     private var moviesList = arrayListOf<Movie>()
 
@@ -45,6 +44,10 @@ class VerticalAdapter() :
                 item_detail.text = movie.overview
             }
         }
+    }
+
+    override fun onClick(v: View?) {
+        TODO("Not yet implemented")
     }
 }
 
